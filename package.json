@@ -1,0 +1,22 @@
+{
+  "name": "ZChat",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "body-parser"  : "~1.13.2",
+    "cookie-parser": "~1.3.5",
+    "debug"        : "~2.2.0",
+    "express"      : "~4.13.1",
+    "serve-favicon": "~2.3.0",
+    "socket.io"    : "latest",
+    "request-ip"   : "latest",
+    "redis"        : "latest",
+    "md5"          : "latest",
+    "bluebird"     : "latest",
+    "sequelize"    : "latest",
+    "mysql"        : "latest"
+  }
+}

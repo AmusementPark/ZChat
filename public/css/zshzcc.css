@@ -1,0 +1,345 @@
+.animate-add {
+	-webkit-transition: 1s linear all; /* Chrome */
+	transition: 0.5s linear all;
+	opacity: 1;
+}
+.animate-leave {
+	-webkit-transition: 1s linear all; /* Chrome */
+	transition: 0.5s linear all;
+	opacity: 0.5;
+}
+.animate-init {
+	opacity: 0.5;
+}
+ 
+.animate-add .animate-add-active {
+	opacity: 0.5;
+}
+
+#text-img-div {
+    height: 2px;
+    width: 100%;
+    margin: 10 0 10px;
+    background: -webkit-linear-gradient(left, rgba(255,0,0,0), rgba(255,0,0,1), rgba(255,0,0,0)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, rgba(255,0,0,0), rgba(255,0,0,1), rgba(255,0,0,0)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, rgba(255,0,0,0), rgba(255,0,0,1), rgba(255,0,0,0)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1), rgba(255,0,0,0)); /* Standard syntax (must be last) */
+}
+
+.divline-bottom {
+    height: 2px;
+    width: 100%;
+    margin: 10 0 10px;
+    background: -webkit-linear-gradient(left, rgba(255,0,0,0), rgba(255,0,0,1)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, rgba(255,0,0,0), rgba(255,0,0,1)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, rgba(255,0,0,0), rgba(255,0,0,1)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1)); /* Standard syntax (must be last) */
+}
+
+
+.divline-left {
+    height: 2px;
+    width: 100%;
+    margin: 10 0 10px;
+    background: -webkit-linear-gradient(left, rgba(255,0,0,1), rgba(255,0,0,0)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, rgba(255,0,0,1), rgba(255,0,0,0)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, rgba(255,0,0,1), rgba(255,0,0,0)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, rgba(255,0,0,1), rgba(255,0,0,0)); /* Standard syntax (must be last) */
+}
+
+.divline-right {
+    height: 2px;
+    width: 100%;
+    margin: 10 0 10px;
+    background: -webkit-linear-gradient(left, rgba(255,0,0,0), rgba(255,0,0,1)); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, rgba(255,0,0,0), rgba(255,0,0,1)); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, rgba(255,0,0,0), rgba(255,0,0,1)); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1)); /* Standard syntax (must be last) */
+}
+
+/**
+.thumbnail:hover {
+    opacity: 0.5;
+    background-color: #FD9F7C;
+    -webkit-transition: all ease .5s;
+    -moz-transition: all ease .5s;
+    transition: all ease .5s;
+}
+
+.caption.caption-overflow {
+	position: absolute;
+    top: 100% left:0;
+    width: 100%;
+    height: auto;
+    background-color: #22334d;
+    visibility: hidden;
+    opacity: 0;
+    margin-left: -4px;
+    margin-top: 4px;
+    -webkit-transition: all .5s ease-in-out;
+    -moz-transition: all .5s ease-in-out;
+    -ms-transition: all .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+*/
+
+/******************************************************/
+/** 全局元素配置
+/******************************************************/
+body {
+	background-color: #fafafa;
+}
+header {
+	margin-top: 50px;
+	background-color: #f1c633;
+	color: #666;
+}
+section {
+	padding:50 0 50px;
+	background-color: #fafafa;
+}
+h1,h2,h3,h4 {
+	font-family: Microsoft Yahei;
+}
+/******************************************************/
+/** 浮动点击最顶样式配置
+/******************************************************/
+.zz-gototop {
+	position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background: rgba(0,0,0,0.5);
+    padding: 10px;
+    color: #fff;
+}
+/******************************************************/
+/** row样式配置
+/******************************************************/
+.row.zz-row {
+	margin-bottom:30px;
+}
+/******************************************************/
+/** header carousel元素配置
+/******************************************************/
+.zz-header-carousel {
+	text-align:left;
+}
+.zz-header-carousel h1 {
+	margin-bottom:20px;
+}
+.zz-header-carousel h3, h4 {
+	margin-top:10px;
+	font-family: Microsoft Yahei;
+	color:#777;
+}
+/******************************************************/
+/** article-list 配置
+/******************************************************/
+.zz-artilist-latest-article-bkimg {
+	width: 100%;
+}
+.zz-artilist-latest-article-cover {
+	position: absolute;
+    background-color: #000;
+    color: #fff;
+    opacity: 0.7;
+    height: 120px;
+    left: 15px;
+    right: 15px;
+    bottom: 0px;
+}
+.zz-artilist-latest-article-cover>h3, 
+.zz-artilist-latest-article-cover>p {
+	margin-left:25px;
+	margin-right:25px;
+}
+.zz-artilist-latest-article-cover>p {
+	color:#fff;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.zz-artilist-latest-article-cover>p>span {
+	margin-right:15px;
+}
+/******************************************************/
+.list-group-item.zz-list-group-item {
+	padding: 15px 15px;
+}
+.list-group-item.zz-list-group-item:first-child {
+	border-top-left-radius:  0px;
+    border-top-right-radius: 0px;
+}
+.list-group-item.zz-list-group-item:last-child {
+	border-bottom-right-radius: 0px;
+    border-bottom-left-radius:  0px;
+}
+.zz-list-group-item-head {
+	margin-bottom: 20px;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+.zz-list-group-item-auth {
+	position: absolute;
+	bottom: 10px;
+	left: 240px;
+}
+.zz-list-group-item-auth > span {
+	margin-left:15px;
+}
+.zz-list-group-item-text {
+	margin-top:15px;
+	line-height:25px;
+	margin-right:5px;
+}
+.zz-list-group-item-logo {
+    width: 35%;
+    float: left;
+    margin-left: 5px;
+    margin-right: 20px;
+    margin-bottom: 5px;
+}
+/******************************************************/
+.list-group-item-overlay-right.zz-list-group-item-overlay-right {
+	width : 19%;
+	background-color: #fff;
+}
+.list-group-item-overlay-right.zz-list-group-item-overlay-right.zz-author-zsh {
+	background-color: #dff0d8;
+}
+.list-group-item-overlay-right.zz-list-group-item-overlay-right.zz-author-zcc {
+	background-color: #faebcc;
+}
+.zz-author-zcc > p, 
+.zz-author-zsh > p {
+	font-family: Microsoft Yahei;
+}
+.zz-list-group-item-overlay-right .zz-1st {
+	margin-top:70px;
+}
+/******************************************************/
+/** Load按钮 配置
+/******************************************************/
+.zz-artilist-load-btn {
+	padding-top: 10px;
+    padding-bottom: 10px;
+}
+/******************************************************/
+/** 侧边栏技能窗配置
+/******************************************************/
+.zz-workskill-panel-zsh {
+	background-color:#dff0d8;
+	padding:15px;
+}
+.zz-workskill-panel-zcc {
+	background-color:#faebcc;
+	padding:15px;
+}
+.zz-workskill-panel-head {}
+.zz-workskill-panel-head >p {
+	margin-top:10px;
+	font-family: Microsoft Yahei;
+}
+.zz-workskill-panel-head >a {
+	margin-left:30px;
+}
+.zz-workskill-panel-head >img {
+	width: 45%;
+}
+.zz-workskill-panel-body {
+	border-top: 1px solid #fff;
+}
+.zz-workskill-panel-body >p {
+	margin:10 0 10px;
+	font-family: Microsoft Yahei;
+	font-weight:bold;
+}
+.zz-workskill-panel-body .progress {
+	margin-bottom :0px;
+}
+/******************************************************/
+/** 页脚部分配置
+/******************************************************/
+.zz-footer-1st-layer {
+	background-color: #2c3e50;
+	padding: 30px 0;
+}
+.zz-footer-1st-layer-qr {
+	text-align:center;
+	color:#fff;
+}
+.zz-footer-1st-layer-qr >img {
+	width:50%;
+}
+.zz-footer-1st-layer-qr >p {
+	line-height:30px;
+}
+.zz-footer-2nd-layer {
+	background-color: #233140;
+	padding: 30px 0;
+}
+.zz-footer-2nd-layer-txt {
+	color:#fff;
+	text-align:center;
+}
+/******************************************************/
+/** 正文部分配置
+/******************************************************/
+.zz-arti-body {
+	text-indent:2em;
+	line-height:28px;
+}
+
+
+
+
+/******************************************************/
+/** 页脚部分配置
+/******************************************************/
+
+
+
+/**
+overflow: hidden;text-overflow: ellipsis;white-space: nowrap;
+*/
+.caption>h4{
+	font-weight:bold;
+}
+.caption.caption-down>h4 {
+	text-align:center;
+	font-weight:bold;
+}
+
+
+
+
+.article-list-logo-mb {
+	float :left;
+	width :28%;
+}
+.article-list-cont {
+	float :left;
+	width :72%;
+	margin-left:15px;
+}
+
+.article-list-cont-mb {
+	float :left;
+	width :67%;
+	margin-left:15px;
+}
+
+
+
+.zsh-right-panel {
+	display: block;
+	border: 1px solid #ddd;
+	width : 100%;
+	height: 300px;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover{
+	background-color: #d0d0d0;
+}
+
