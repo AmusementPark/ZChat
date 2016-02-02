@@ -30,6 +30,7 @@ app.post('/chat', function(req, res) {
             return res.status(404).send("");
         }
         var timestamp = chats[chats.length-1].date;
+        console.log(chats);
         var result = chats.map(function(chat) {
             chat.date = new Date(chat.date).pattern('yyyy-MM-dd HH:mm:ss');
             //return JSON.parse(chat);
@@ -300,21 +301,21 @@ sio.on('connection', function(socket) {
     socket.on('REQMSG', function(msg) {
         getAvatar(ip).then(function(ava) {
             var date = new Date();
-            var json =  {
-                msg : msg,
-                ava : ava,
-                date: date.pattern('yyyy-MM-dd HH:mm:ss'),
-                ip  : ip
-            }
-            saveHistory(date, json);
-            saveChatToMysql({
+            var json = {
                 IP      : ip,
                 AVATAR  : ava,
                 MESSAGE : msg,
                 TIME    : date.getTime(),
                 DATE    : date
-            });
-            sio.emit('RESMSG', JSON.stringify(json));
+            }
+            saveHistory(date, json);
+            saveChatToMysql(json);
+            sio.emit('RESMSG', JSON.stringify({
+                msg : msg,
+                ava : ava,
+                date: date.pattern('yyyy-MM-dd HH:mm:ss'),
+                ip  : ip
+            }));
         });
     });
     /**
