@@ -170,7 +170,7 @@ var chat_ids_read_end = false;
 
 var saveHistory = function(date, json) {
     return Q.all([
-        redis.zaddAsync  (CHAT_IDS_ZSET_KEY, date.getTime()),
+        redis.zaddAsync  (CHAT_IDS_ZSET_KEY, date.getTime(), date.getTime()),
         redis.hmsetAsync (CHAT_HASH_KEY_PREFIX+date.getTime(), json),
         redis.expireAsync(CHAT_HASH_KEY_PREFIX+date.getTime(), CHAT_HASH_KEY_EXPIRE)
     ]);
