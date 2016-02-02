@@ -2,7 +2,7 @@
 var models 	= require('../db');
 //======================================================================================
 module.exports = function(sequelize, DataTypes) {
-	var CHAT = sequelize.define('CHAT_DEV', {
+	var CHAT = sequelize.define('CHAT', {
 		__ID : {
 	    	type : DataTypes.INTEGER.UNSIGNED,
 	    	autoIncrement: true,

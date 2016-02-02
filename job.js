@@ -43,7 +43,7 @@ var ChatMysqlHelper = function() {
 };
 //-----------------------------------------------------------------------------------
 ChatMysqlHelper.prototype.save = function(json) {
-    return models.CHAT_DEV.create({
+    return models.CHAT.create({
         IP      : json.IP,
         MESSAGE : json.MESSAGE,
         AVATAR  : json.AVATAR,
@@ -56,7 +56,7 @@ ChatMysqlHelper.prototype.save = function(json) {
  * 读取一条聊天
  */
 ChatMysqlHelper.prototype.read = function(timestamp) {
-    return models.CHAT_DEV.findAll({
+    return models.CHAT.findAll({
         where : {
             TIME: timestamp
         }
@@ -72,7 +72,7 @@ ChatMysqlHelper.prototype.read = function(timestamp) {
  * @returns {*}
  */
 ChatMysqlHelper.prototype.readBatch = function(ids) {
-    return models.CHAT_DEV.findAll({
+    return models.CHAT.findAll({
         order : [
             ['TIME', 'DESC']
         ],
@@ -94,7 +94,7 @@ ChatMysqlHelper.prototype.readBatch = function(ids) {
  */
 var READ_ID_COUNT = 100;
 ChatMysqlHelper.prototype.readIDs = function(offset) {
-    return models.CHAT_DEV.findAll({
+    return models.CHAT.findAll({
         attributes  : ['TIME'],
         limit       : READ_ID_COUNT,
         offset      : offset
