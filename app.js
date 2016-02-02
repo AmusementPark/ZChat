@@ -170,7 +170,8 @@ var chat_ids_read_end = false;
 
 var saveHistory = function(date, json) {
     return Q.all([
-        redis.zaddAsync(CHAT_HASH_KEY_PREFIX+date.getTime(), date.getTime(), JSON.stringify(json)),
+        redis.zaddAsync  (CHAT_IDS_ZSET_KEY, date.getTime()),
+        redis.hmsetAsync (CHAT_HASH_KEY_PREFIX+date.getTime(), json),
         redis.expireAsync(CHAT_HASH_KEY_PREFIX+date.getTime(), CHAT_HASH_KEY_EXPIRE)
     ]);
 };
