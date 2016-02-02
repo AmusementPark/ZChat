@@ -1,13 +1,33 @@
 /**
  * 定时任务。存储聊天记录进mysql数据库
  */
-//======================================================================================
-var sequelize = require('sequelize');
+//===================================================================================
 var Q		  = require('bluebird');
-//--------------------------------------------------------------------------------------
+//-----------------------------------------------------------------------------------
 var models 	  = require('./db');
 var protos    = require('./prototypeExt');
-//======================================================================================
+var redis     = require('./redis');
+//===================================================================================
+var ChatMysqlBkJob = function() {
+    this.backendJobTimeInterval = 1*3600*1000;   // 一小时
+    this.timerHandler = {};
+};
+//-----------------------------------------------------------------------------------
+ChatMysqlBkJob.prototype.start = function() {
+    this.timerHandler = setInterval(function() {
+
+    }, this.backendJobTimeInterval);
+}
+//-----------------------------------------------------------------------------------
+ChatMysqlBkJob.prototype.stop = function() {
+    clearInterval(this.timerHandler);
+    this.timerHandler = {};
+};
+//-----------------------------------------------------------------------------------
+ChatMysqlBkJob.prototype.setTimeInterval = function (interval) {
+    this.backendJobTimeInterval = interval;
+};
+//-----------------------------------------------------------------------------------
 var ChatMysqlHelper = function() {
     this.timeInterval = 1*3600*1000;
     this.timeArea = function(timestamp) {
@@ -23,7 +43,7 @@ var ChatMysqlHelper = function() {
 };
 //-----------------------------------------------------------------------------------
 ChatMysqlHelper.prototype.save = function(json) {
-    return models.CHAT.create({
+    return models.CHAT_DEV.create({
         IP      : json.IP,
         MESSAGE : json.MESSAGE,
         AVATAR  : json.AVATAR,
@@ -33,28 +53,59 @@ ChatMysqlHelper.prototype.save = function(json) {
 };
 //-----------------------------------------------------------------------------------
 /**
- * 按小时为单位读取
+ * 读取一条聊天
  */
 ChatMysqlHelper.prototype.read = function(timestamp) {
-    var timeAreas = this.timeArea(timestamp);
-    console.log(timeAreas);
-    return models.CHAT.findAll({
-        order : [
-            ['TIME', 'DESC']
-        ],
-        // where TIME >= timeAreas.bgnTime and TIME < timeAreas.endTime
+    return models.CHAT_DEV.findAll({
         where : {
-            TIME : {
-                $gte: timeAreas.bgnTime,
-                $lt : timeAreas.endTime
-            }
+            TIME: timestamp
         }
-    }).then(function(msgs) {
-        msgs.forEach(function(msg) {
-            console.log(msg.MESSAGE);
+    }).then(function(results) {
+        return Q.map(results, function(result) {
+            return Q.resolve(result.dataValues);
         });
     });
 };
-//======================================================================================
-exports.ChatMysqlHelper = new ChatMysqlHelper();
-//======================================================================================
+/**
+ * 读取一批聊天
+ * @param ids
+ * @returns {*}
+ */
+ChatMysqlHelper.prototype.readBatch = function(ids) {
+    return models.CHAT_DEV.findAll({
+        order : [
+            ['TIME', 'DESC']
+        ],
+        where : {
+            TIME : {
+                $in: ids
+            }
+        },
+        attributes: { exclude: ['__ID'] }
+    }).then(function(results) {
+        return Q.map(results, function(result) {
+            return Q.resolve(result.dataValues);
+        });
+    });
+};
+/**
+ * 读取id列表
+ * @type {ChatMysqlHelper}
+ */
+var READ_ID_COUNT = 100;
+ChatMysqlHelper.prototype.readIDs = function(offset) {
+    return models.CHAT_DEV.findAll({
+        attributes  : ['TIME'],
+        limit       : READ_ID_COUNT,
+        offset      : offset
+    }).then(function(ids) {
+        var _ = ids.map(function (id) {return id.TIME});
+        return Q.resolve(_);
+    });
+};
+//===================================================================================
+var ChatMysqlHelperInstance = new ChatMysqlHelper();
+var ChatMysqlBkJobInstance  = new ChatMysqlBkJob();
+exports.ChatMysqlHelper = ChatMysqlHelperInstance;
+exports.ChatMysqlBkJob  = ChatMysqlBkJobInstance;
+//===================================================================================
