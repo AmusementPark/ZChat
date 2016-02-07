@@ -213,10 +213,9 @@ var readHistory = function(statime) {
                     if (ids_from_mysql.length < CHAT_EVERY_READ_COUNT) {
                         chat_ids_read_end = true;
                     }
-                    var _ = Q.map(ids_from_mysql, function(id_from_mysql) {
+                    return Q.map(ids_from_mysql, function(id_from_mysql) {
                         return redis.zaddAsync(CHAT_IDS_ZSET_KEY, id_from_mysql, id_from_mysql);
-                    });
-                    return _.then(function() {
+                    }).then(function() {
                         return redis.zrevrangebyscoreAsync(CHAT_IDS_ZSET_KEY, ["("+statime, '-INF', 'LIMIT', 0, CHAT_EVERY_READ_COUNT]);
                     });
                 });
@@ -289,8 +288,15 @@ var readHistory = function(statime) {
  */
 //-----------------------------------------------------------------------------------
 sio.on('connection', function(socket) {
-    var _  = socket.request.connection.remoteAddress.split(":");
-    var ip = _[_.length-1];
+    var ip = null;
+    //有问题，会出现remoteAddress 取不到值的情况。似乎在移动4g网络情况下出现
+    if (socket.request.connection == null ||
+        socket.request.connection.remoteAddress == null) {
+        ip = "0.0.0.0";
+    } else  {
+        var _  = socket.request.connection.remoteAddress.split(":");
+        ip = _[_.length-1];
+    }
 
     onLogin(ip).then(function() {
         getOnline().then(function(res) {
